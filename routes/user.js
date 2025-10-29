@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   userRegister,
   userLogin,
+  userList,
   userProfile,
 } = require("../controllers/userController");
 
