@@ -1,3 +1,4 @@
+var jwt = require("jsonwebtoken");
 const User = require("../modles/userModel");
 const bcrypt = require("bcryptjs");
 
@@ -32,7 +33,18 @@ const userLogin = async (req, res) => {
     }
     const user = await User.findOne({ email });
     if (user && bcrypt.compareSync(password, user.password)) {
-      return res.status(200).json(user);
+      const accessToken = jwt.sign(
+        {
+          user: {
+            username: user.username,
+            email: user.email,
+            id: user.id,
+          },
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "1m" }
+      );
+      return res.status(200).json({ accessToken });
     } else {
       return res.status(404).json({ message: "email or password incorrect!" });
     }
