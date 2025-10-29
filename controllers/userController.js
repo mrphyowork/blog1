@@ -25,7 +25,16 @@ const userRegister = async (req, res) => {
 
 // public
 const userLogin = async (req, res) => {
-  res.json({ message: "Login the user" });
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: "All fields are required!" });
+  }
+  const user = await User.findOne({ email });
+  if (user && bcrypt.compare(password, user.password)) {
+    return res.status(200).json(user);
+  } else {
+    return res.status(404).json({ message: "email or password incorrect!" });
+  }
 };
 
 // private
