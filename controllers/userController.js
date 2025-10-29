@@ -42,7 +42,7 @@ const userLogin = async (req, res) => {
 };
 
 const userList = async (req, res) => {
-  res.send("user list");
+  res.json("user list");
 };
 
 // private
