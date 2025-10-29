@@ -10,6 +10,8 @@ router.post("/register", userRegister);
 
 router.post("/login", userLogin);
 
+router.get("/list", userList);
+
 router.get("/profile", userProfile);
 
 module.exports = router;

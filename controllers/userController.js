@@ -25,16 +25,24 @@ const userRegister = async (req, res) => {
 
 // public
 const userLogin = async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({ message: "All fields are required!" });
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "All fields are required!" });
+    }
+    const user = await User.findOne({ email });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      return res.status(200).json(user);
+    } else {
+      return res.status(404).json({ message: "email or password incorrect!" });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
   }
-  const user = await User.findOne({ email });
-  if (user && bcrypt.compareSync(password, user.password)) {
-    return res.status(200).json(user);
-  } else {
-    return res.status(404).json({ message: "email or password incorrect!" });
-  }
+};
+
+const userList = async (req, res) => {
+  res.send("user list");
 };
 
 // private
@@ -42,4 +50,4 @@ const userProfile = async (req, res) => {
   res.json({ message: "Current user info" });
 };
 
-module.exports = { userRegister, userLogin, userProfile };
+module.exports = { userRegister, userLogin, userList, userProfile };
