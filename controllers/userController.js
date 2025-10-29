@@ -1,6 +1,15 @@
+const User = require("../modles/userModel");
+
 // public
 const userRegister = async (req, res) => {
-  res.json({ message: "Register the user" });
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: "All fields are required!" });
+  }
+  const user = await User.create({ username, email, password });
+  return res.status(201).json(user);
+
+  //   res.json({ message: "Register the user" });
 };
 
 // public
