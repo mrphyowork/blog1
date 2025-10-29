@@ -30,7 +30,7 @@ const userLogin = async (req, res) => {
     return res.status(400).json({ message: "All fields are required!" });
   }
   const user = await User.findOne({ email });
-  if (user && bcrypt.compare(password, user.password)) {
+  if (user && bcrypt.compareSync(password, user.password)) {
     return res.status(200).json(user);
   } else {
     return res.status(404).json({ message: "email or password incorrect!" });
