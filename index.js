@@ -11,6 +11,9 @@ app.use(express.json());
 const blog = require("./routes/blog");
 app.use("/blog", blog);
 
+const user = require("./routes/user");
+app.use("/user", user);
+
 const connectDB = require("./config/dbConnection");
 connectDB();
 
