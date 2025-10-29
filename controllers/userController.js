@@ -42,7 +42,8 @@ const userLogin = async (req, res) => {
 };
 
 const userList = async (req, res) => {
-  res.json("user list");
+  const users = await User.find();
+  res.status(200).json(users);
 };
 
 // private
