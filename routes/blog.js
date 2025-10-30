@@ -9,13 +9,13 @@ const {
 } = require("../controllers/blogController");
 
 // middleware that is specific to this router
-router.use((req, res, next) => {
-  console.log("Time: ", Date.now());
-  next();
-});
+// router.use((req, res, next) => {
+//   console.log("Time: ", Date.now());
+//   next();
+// });
 
-// const validateToken = require("../middleware/validateJwtToken");
-// router.use(validateToken);
+const validateToken = require("../middleware/validateJwtToken");
+router.use(validateToken);
 
 // Get contacts
 router.get("/", blogList);
