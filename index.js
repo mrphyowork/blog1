@@ -5,7 +5,15 @@ require("dotenv").config();
 const port = process.env.PORT;
 
 var cors = require("cors");
-app.use(cors());
+
+const corsOption = {
+  origin: "http://localhost:5173",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOption));
 app.use(express.json());
 
 const blog = require("./routes/blog");
